@@ -26,10 +26,11 @@ def load_models(risk_columns):
     s3_bucket = 'my-model-files-ankush'
     region = 'us-east-2'
     models = {}
+
     s3 = boto3.client(
     's3',
     region_name=region,
-    aws_access_key_id=aws_access_key
+    aws_access_key_id=aws_access_key,
     aws_secret_access_key=aws_secret_key
 )
 
