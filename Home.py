@@ -6,6 +6,13 @@ import plotly.graph_objects as go
 import plotly.express as px
 import boto3
 import tempfile
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Load environment variables from .env file
+
+aws_access_key = os.getenv("AWS_ACCESS_KEY_ID")
+aws_secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
 
 
 @st.cache_data
@@ -18,13 +25,12 @@ def load_state_county_map():
 def load_models(risk_columns):
     s3_bucket = 'my-model-files-ankush'
     region = 'us-east-2'
-
     models = {}
     s3 = boto3.client(
     's3',
     region_name=region,
-    aws_access_key_id='AKIA5ZIXIO7P7FDM6TUO',
-    aws_secret_access_key='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'
+    aws_access_key_id=aws_access_key
+    aws_secret_access_key=aws_secret_key
 )
 
 
