@@ -3,4 +3,4 @@ pandas
 numpy
 plotly
 scikit-learn
-boto-3
+boto3
