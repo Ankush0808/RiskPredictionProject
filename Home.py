@@ -15,15 +15,16 @@ import os
 
 aws_access_key = os.getenv("AWS_ACCESS_KEY_ID")
 aws_secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+# aws_access_key = "AKIA5ZIXIO7P7FDM6TUO"
+# aws_secret_key = "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"
 
 
 @st.cache_data
 def load_state_county_map():
     with open("state_county_final_dict.json", 'r') as f:
         return json.load(f)
-
-# --- Load and cache ML models from S3 ---
 @st.cache_resource
+# --- Load and cache ML models from S3 ---
 def load_models(risk_columns):
     s3_bucket = 'my-model-files-ankush'
     region = 'us-east-2'
@@ -32,8 +33,8 @@ def load_models(risk_columns):
     s3 = boto3.client(
     's3',
     region_name=region,
-    aws_access_key_id=aws_access_key,
-    aws_secret_access_key=aws_secret_key
+    aws_access_key_id= aws_access_key,
+    aws_secret_access_key= aws_secret_key
 )
 
 
