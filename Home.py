@@ -15,8 +15,7 @@ import os
 
 aws_access_key = os.getenv("AWS_ACCESS_KEY_ID")
 aws_secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-# aws_access_key = "AKIA5ZIXIO7P7FDM6TUO"
-# aws_secret_key = "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"
+
 
 
 @st.cache_data
