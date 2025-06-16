@@ -13,8 +13,22 @@ load_dotenv()  # Load environment variables from .env file
 
 import os
 
-aws_access_key = os.getenv("AWS_ACCESS_KEY_ID")
-aws_secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+# aws_access_key = os.getenv("AWS_ACCESS_KEY_ID")
+# aws_secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+
+# Use secrets from Streamlit Cloud
+aws_access_key = st.secrets["aws"]["AWS_ACCESS_KEY_ID"]
+aws_secret_key = st.secrets["aws"]["AWS_SECRET_ACCESS_KEY"]
+region='us-east-2'
+
+# Create S3 client with credentials from Streamlit secrets
+s3 = boto3.client(
+    's3',
+    region_name=region,
+    aws_access_key_id=aws_access_key,
+    aws_secret_access_key=aws_secret_key
+)
+
 
 
 
@@ -22,20 +36,22 @@ aws_secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
 def load_state_county_map():
     with open("state_county_final_dict.json", 'r') as f:
         return json.load(f)
+    
 @st.cache_resource(show_spinner="It will take about 1-2 minutes to load models from s3 ")
+
 # --- Load and cache ML models from S3 ---
+@st.cache_resource(show_spinner="It will take about 1-2 minutes to load models from S3")
 def load_models(risk_columns):
     s3_bucket = 'my-model-files-ankush'
     region = 'us-east-2'
     models = {}
 
     s3 = boto3.client(
-    's3',
-    region_name=region,
-    aws_access_key_id= aws_access_key,
-    aws_secret_access_key= aws_secret_key
-)
-
+        's3',
+        region_name=region,
+        aws_access_key_id=aws_access_key,
+        aws_secret_access_key=aws_secret_key
+    )
 
     for risk_col in risk_columns:
         model_key = f'{risk_col}_model.pkl'
@@ -46,7 +62,8 @@ def load_models(risk_columns):
             with open(tmp_file.name, 'rb') as f:
                 models[risk_col] = pickle.load(f)
 
-    return models
+    return models  # ✅ return after the loop
+
 
 # --- Load and cache incident data --
 @st.cache_data
