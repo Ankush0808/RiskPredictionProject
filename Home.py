@@ -22,7 +22,7 @@ aws_secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
 def load_state_county_map():
     with open("state_county_final_dict.json", 'r') as f:
         return json.load(f)
-@st.cache_resource
+@st.cache_resource(show_spinner="It will take about 1-2 minutes to load models from s3 ")
 # --- Load and cache ML models from S3 ---
 def load_models(risk_columns):
     s3_bucket = 'my-model-files-ankush'
