@@ -137,11 +137,28 @@ fig_risk = go.Figure(data=[go.Bar(
 )])
 
 fig_risk.update_layout(
-    title=dict(text=f"Risk Score Prediction for {business_state} Businesses", font=dict(size=24, color='white')),
-    xaxis=dict(title="Transition", titlefont=dict(size=18, color='white'),
-               tickfont=dict(size=14, color='lightgray'), linecolor='white', mirror=True),
-    yaxis=dict(title="Score (pts)", titlefont=dict(size=18, color='white'),
-               tickfont=dict(size=14, color='lightgray'), linecolor='white', mirror=True),
+    title=dict(
+        text=f"Risk Score Prediction for {business_state} Businesses",
+        font=dict(size=24, color='white')
+    ),
+    xaxis=dict(
+        title=dict(
+            text="Transition",
+            font=dict(size=18, color='white')
+        ),
+        tickfont=dict(size=14, color='lightgray'),
+        linecolor='white',
+        mirror=True
+    ),
+    yaxis=dict(
+        title=dict(
+            text="Score (pts)",
+            font=dict(size=18, color='white')
+        ),
+        tickfont=dict(size=14, color='lightgray'),
+        linecolor='white',
+        mirror=True
+    ),
     template="plotly_dark",
     font=dict(family="Arial", size=16, color="white")
 )
