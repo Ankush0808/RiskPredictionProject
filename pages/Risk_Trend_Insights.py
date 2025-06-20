@@ -3,34 +3,7 @@ import pandas as pd
 import pickle
 import json
 import plotly.express as px
-
-# --- Load and cache state-county mapping ---
-@st.cache_data
-def load_state_county_map():
-    with open(r"C:\Users\Lenovo\state_county_final_dict.json", 'r') as f:
-        return json.load(f)
-
-# --- Load and cache ML models ---
-@st.cache_resource
-def load_models(risk_columns):
-    models = {}
-    for risk_col in risk_columns:
-        model_path = rf'C:\Users\Lenovo\{risk_col}_model.pkl'
-        with open(model_path, 'rb') as file:
-            models[risk_col] = pickle.load(file)
-    return models
-
-# --- Title ---
-st.title("Risk Trend Insights")
-
-# --- Sidebar Inputs ---
-st.sidebar.header("Enter few details listed below:")
-
-# --- Load data and models ---
-state_county_map = load_state_county_map()
-risk_columns = ['Risk_PN_ensemble', 'Risk_NP_ensemble', 'Risk_PF_ensemble',
-                'Risk_FP_ensemble', 'Risk_FN_ensemble', 'Risk_NF_ensemble']
-models = load_models(risk_columns)
+from Home import state_county_map, incident_df, models
 
 state = st.sidebar.selectbox("Select State", list(state_county_map.keys()), index=list(state_county_map.keys()).index("Virginia"))
 county = st.sidebar.selectbox("Select County", state_county_map[state])
